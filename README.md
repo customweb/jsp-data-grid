@@ -16,6 +16,9 @@ This implementation does differ primarily by:
 - AJAX does not require to implement any additional server handlers.
 - Easy integration with Spring MVC.
 
+The license of this software is Apache License 2. 
+
+
 ## Installation ##
 The project contains a .pom file.
 
