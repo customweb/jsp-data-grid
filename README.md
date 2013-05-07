@@ -16,7 +16,19 @@ This implementation does differ primarily by:
 - AJAX does not require to implement any additional server handlers.
 - Easy integration with Spring MVC.
 
-### Samples
+## Installation ##
+The project contains a .pom file.
+
+#### Dependencies ####
+- hibernate-entitymanager-4.1.0 (if you want to use JPA)
+- hibernate-jpa-2.0-api (if you want to use JPA)
+- jsp-api.jar
+
+#### Classpath Setup ####
+Download the actual jdgrid.jar and add it to your classpath. You should also add the dependencies listed above.
+
+
+## Samples ##
 
 #### JSP File
 ```
