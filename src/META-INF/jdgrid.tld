@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+
+	<tlib-version>1.0</tlib-version>
+	<short-name>grid</short-name>
+	<uri>http://jdgrid.org/grid</uri>
+
+	<tag>
+		<name>grid</name>
+		<tag-class>org.jdgrid.tag.GridTag</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<name>grid</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+
+	<tag>
+		<name>table</name>
+		<tag-class>org.jdgrid.tag.TableTag</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<name>var</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>showFilterRow</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+
+	<tag>
+		<name>column</name>
+		<tag-class>org.jdgrid.tag.ColumnTag</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>fieldName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>sortable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>filterable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>labelForTrue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>labelForFalse</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+
+	<tag>
+		<name>pager</name>
+		<tag-class>org.jdgrid.tag.PagerTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>previousNextButton</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>startEndButton</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>maxPageItems</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+
+	<tag>
+		<name>search</name>
+		<tag-class>org.jdgrid.tag.SearchTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>columnName</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+
+	<tag>
+		<name>submit</name>
+		<tag-class>org.jdgrid.tag.SubmitTag</tag-class>
+		<body-content>empty</body-content>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+
+	<tag>
+		<name>limit</name>
+		<tag-class>org.jdgrid.tag.LimitTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>steps</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+
+	<tag>
+		<name>filter</name>
+		<tag-class>org.jdgrid.tag.FilterTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>fieldName</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>defaultOperator</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>showOperator</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+
+
+</taglib>
