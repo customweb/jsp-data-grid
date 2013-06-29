@@ -3,6 +3,8 @@ package org.jdgrid.tag;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 
 import javax.servlet.jsp.JspException;
@@ -205,10 +207,19 @@ public class ColumnTag extends AbstractTag {
 		}
 	}
 	
-	private Object getProperty(Object item, String property) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-		Field field = item.getClass().getDeclaredField(property);
-		field.setAccessible(true);
-		return field.get(item);
+	private Object getProperty(Object item, String property) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		Field[] fields = item.getClass().getDeclaredFields();
+		for (Field field : fields) {
+			if (field.getName().equals(property)) {
+				field.setAccessible(true);
+				return field.get(item);
+			}
+		}
+
+		char first = Character.toUpperCase(property.charAt(0));
+		String methodName = "get" + first + property.substring(1);
+		Method method = item.getClass().getDeclaredMethod(methodName);
+		return method.invoke(item);
 	}
 
 	public String getLabelForFalse() {
