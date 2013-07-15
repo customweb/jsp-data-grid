@@ -15,7 +15,6 @@ import org.jdgrid.util.Html;
 import org.jdgrid.util.Property;
 import org.jdgrid.util.UrlEncodedQueryString;
 
-
 public class ColumnTag extends AbstractTag {
 
 	private boolean filterable;
@@ -28,7 +27,7 @@ public class ColumnTag extends AbstractTag {
 	public void doTag() throws JspException, IOException {
 		TableTag table = (TableTag) findAncestorWithClass(this, TableTag.class);
 		try {
-	
+
 			if (table.isHeaderRowProcessing()) {
 				getJspContext().getOut().print(getCellHeader());
 			} else if (table.isFilterRowProcessing()) {
@@ -36,8 +35,7 @@ public class ColumnTag extends AbstractTag {
 			} else {
 				getJspContext().getOut().print(getCellContent());
 			}
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			JspException exception = new JspException();
 			exception.initCause(e);
 			throw exception;
@@ -51,7 +49,7 @@ public class ColumnTag extends AbstractTag {
 
 		if (this.getTitle() != null && !this.getTitle().isEmpty()) {
 			builder.append(this.getTitle());
-		} else if(this.getFieldName() != null && !this.getFieldName().isEmpty()) {
+		} else if (this.getFieldName() != null && !this.getFieldName().isEmpty()) {
 			builder.append(this.getFieldName());
 		}
 
@@ -88,7 +86,7 @@ public class ColumnTag extends AbstractTag {
 			TableTag table = (TableTag) findAncestorWithClass(this, TableTag.class);
 			String var = table.getVar();
 			Object item = getJspContext().getAttribute(var);
-			
+
 			value.append(getItemData(item));
 
 		} else {
@@ -126,20 +124,19 @@ public class ColumnTag extends AbstractTag {
 		StringBuilder builder = new StringBuilder();
 
 		String inputFieldName = grid.getFieldFilterParameterName(this.getFieldName());
-		
+
 		Class<?> columnType = Property.getPropertyDataType(grid.getDomainClass(), this.getFieldName());
-		
+
 		if (boolean.class.isAssignableFrom(columnType)) {
 			HashMap<String, String> values = new HashMap<String, String>();
 			values.put("", "");
 			values.put("true", getLabelForTrue());
 			values.put("false", getLabelForFalse());
-			
+
 			String dropDown = Html.getDropDown(inputFieldName, values, getCurrentFilterValue(), " class=\"ajax-event\"");
-			
+
 			builder.append(dropDown);
-		}
-		else {
+		} else {
 			builder.append("<input type=\"text\" name=\"").append(inputFieldName).append("\" ");
 			builder.append("value=\"");
 			UrlEncodedQueryString query = UrlEncodedQueryString.parse(grid.getCurrentUrl().getQuery());
@@ -149,7 +146,6 @@ public class ColumnTag extends AbstractTag {
 
 			builder.append("\" />");
 		}
-
 
 		// TODO: Add operator dropdown
 		return builder.toString();
@@ -193,33 +189,48 @@ public class ColumnTag extends AbstractTag {
 	}
 
 	private String getItemData(Object item) {
-		try {
-			String[] parts = getFieldName().split("\\.");
-			Object data = item;
-			
-			for (String currentProperty : parts) {
-				data = getProperty(data, currentProperty);
-			}
-			
-			return data.toString();
-		} catch (Exception e) {
-			return "";
+		String[] parts = getFieldName().split("\\.");
+		Object data = item;
+
+		for (String currentProperty : parts) {
+			data = getProperty(data, currentProperty);
 		}
+
+		return data.toString();
 	}
-	
-	private Object getProperty(Object item, String property) throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		Field[] fields = item.getClass().getDeclaredFields();
-		for (Field field : fields) {
-			if (field.getName().equals(property)) {
-				field.setAccessible(true);
+
+	private Object getProperty(Object item, String property) {
+		char first = Character.toUpperCase(property.charAt(0));
+		String methodName = "get" + first + property.substring(1);
+		try {
+			Method method = Property.getMethodByMethodName(item.getClass(), methodName);
+			if (method != null) {
+				return method.invoke(item);
+			}
+		} catch (IllegalArgumentException e) {
+			throw new RuntimeException(e);
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException(e);
+		} catch (InvocationTargetException e) {
+			throw new RuntimeException(e);
+		}
+		
+		Field field = Property.getFieldByFieldName(item.getClass(), property);
+		if (field != null) {
+			Property.makeAccessible(field);
+			try {
 				return field.get(item);
+			} catch (IllegalArgumentException e) {
+				throw new RuntimeException(e);
+			} catch (IllegalAccessException e) {
+				throw new RuntimeException(e);
 			}
 		}
 
-		char first = Character.toUpperCase(property.charAt(0));
-		String methodName = "get" + first + property.substring(1);
-		Method method = item.getClass().getDeclaredMethod(methodName);
-		return method.invoke(item);
+		throw new RuntimeException(String.format(
+				"Could not resolve the property '%1s' (no method found with name '%1s' found and no property found with this name).", property,
+				methodName));
+
 	}
 
 	public String getLabelForFalse() {
@@ -237,7 +248,7 @@ public class ColumnTag extends AbstractTag {
 	public void setLabelForTrue(String labelForTrue) {
 		this.labelForTrue = labelForTrue;
 	}
-	
+
 	protected String getCurrentFilterValue() {
 		Grid<?> grid = getGrid();
 		String inputFieldName = grid.getFieldFilterParameterName(this.getFieldName());
@@ -247,5 +258,5 @@ public class ColumnTag extends AbstractTag {
 		}
 		return "";
 	}
-	
+
 }
