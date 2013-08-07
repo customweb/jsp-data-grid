@@ -195,11 +195,19 @@ public class ColumnTag extends AbstractTag {
 		for (String currentProperty : parts) {
 			data = getProperty(data, currentProperty);
 		}
+		
+		if (data == null) {
+			return "";
+		}
 
 		return data.toString();
 	}
 
 	private Object getProperty(Object item, String property) {
+		if (item == null) {
+			return "";
+		}
+		
 		char first = Character.toUpperCase(property.charAt(0));
 		String methodName = "get" + first + property.substring(1);
 		try {
