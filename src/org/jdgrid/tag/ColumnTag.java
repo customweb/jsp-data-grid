@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
@@ -23,12 +24,16 @@ public class ColumnTag extends AbstractTag {
 	private String title;
 	private String labelForFalse = "False";
 	private String labelForTrue = "True";
+	private String colWidth;
+	private String align = "left";
 
 	public void doTag() throws JspException, IOException {
 		TableTag table = (TableTag) findAncestorWithClass(this, TableTag.class);
 		try {
 
-			if (table.isHeaderRowProcessing()) {
+			if (table.isColGroupProcessing()) {
+				getJspContext().getOut().print(getColContent());
+			} else if (table.isHeaderRowProcessing()) {
 				getJspContext().getOut().print(getCellHeader());
 			} else if (table.isFilterRowProcessing()) {
 				getJspContext().getOut().print(getFilterContent());
@@ -78,8 +83,14 @@ public class ColumnTag extends AbstractTag {
 
 	private StringWriter getCellContent() throws JspException, IOException {
 		StringWriter value = new StringWriter();
-
-		value.append("<td ").append(getAdditionalAttributes()).append(">");
+		
+		Map<String, Object> attributes = new HashMap<String, Object>(getDynamicAttribute());
+		if (attributes.containsKey("style")) {
+			attributes.put("style", "text-align: " + getAlign() + "; " + attributes.get("style"));
+		} else {
+			attributes.put("style", "text-align: " + getAlign() + ";");
+		}
+		value.append("<td ").append(getAdditionalAttributes(attributes)).append(">");
 
 		JspFragment body = getJspBody();
 		if (body == null) {
@@ -133,18 +144,18 @@ public class ColumnTag extends AbstractTag {
 			values.put("true", getLabelForTrue());
 			values.put("false", getLabelForFalse());
 
-			String dropDown = Html.getDropDown(inputFieldName, values, getCurrentFilterValue(), " class=\"ajax-event\"");
+			String dropDown = Html.getDropDown(inputFieldName, values, getCurrentFilterValue(), " class=\"ajax-event form-control\"");
 
 			builder.append(dropDown);
 		} else {
-			builder.append("<input type=\"text\" name=\"").append(inputFieldName).append("\" ");
+			builder.append("<div><input class=\"form-control\" type=\"text\" name=\"").append(inputFieldName).append("\" ");
 			builder.append("value=\"");
 			UrlEncodedQueryString query = UrlEncodedQueryString.parse(grid.getCurrentUrl().getQuery());
 			if (query.contains(inputFieldName)) {
 				builder.append(query.get(inputFieldName));
 			}
 
-			builder.append("\" />");
+			builder.append("\" /></div>");
 		}
 
 		// TODO: Add operator dropdown
@@ -265,6 +276,38 @@ public class ColumnTag extends AbstractTag {
 			return query.get(inputFieldName);
 		}
 		return "";
+	}
+	
+	public String getColContent() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("<col ");
+		
+		if (colWidth != null) {
+			builder.append("width = \"").append(colWidth).append("\" ");
+		}
+		
+		builder.append("/>");
+		
+		return builder.toString();
+	}
+
+	public String getColWidth() {
+		return colWidth;
+	}
+
+	public void setColWidth(String colWidth) {
+		this.colWidth = colWidth;
+	}
+
+	public String getAlign() {
+		return align;
+	}
+
+	public void setAlign(String align) {
+		if (align.matches("left|right|center")) {
+			this.align = align;
+		}
 	}
 
 }

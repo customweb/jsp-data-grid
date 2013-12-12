@@ -3,7 +3,6 @@ package org.jdgrid.tag;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -12,7 +11,6 @@ import javax.servlet.jsp.tagext.JspFragment;
 
 import org.jdgrid.Grid;
 import org.jdgrid.filter.OrderBy;
-import org.jdgrid.util.UrlEncodedQueryString;
 
 
 public class GridTag extends AbstractTag {

@@ -13,6 +13,7 @@ import org.jdgrid.Grid;
 public class TableTag extends AbstractTag {
 
 	private String var;
+	private boolean colGroupProcessing = false;
 	private boolean headerRowProcessing = false;
 	private boolean filterRowProcessing = false;
 	private boolean showFilterRow = false;
@@ -31,11 +32,27 @@ public class TableTag extends AbstractTag {
 		value.append(this.getAdditionalAttributes());
 
 		value.append(">");
+		value.append(this.getColGroup());
 		value.append(this.getTableHeader());
 		value.append(this.getTableBody());
 		value.append("</table>");
 
 		getJspContext().getOut().print(value);
+	}
+	
+	public String getColGroup() throws JspException, IOException {
+		StringWriter builder = new StringWriter();
+		builder.append("<colgroup>");
+		
+		JspFragment body = getJspBody();
+		
+		this.colGroupProcessing = true;
+		body.invoke(builder);
+		this.colGroupProcessing = false;
+		
+		builder.append("</colgroup>");
+		
+		return builder.toString();
 	}
 
 	public String getTableBody() throws JspException, IOException {
@@ -95,6 +112,10 @@ public class TableTag extends AbstractTag {
 
 	public void setVar(String var) {
 		this.var = var;
+	}
+	
+	public boolean isColGroupProcessing() {
+		return colGroupProcessing;
 	}
 
 	public boolean isHeaderRowProcessing() {

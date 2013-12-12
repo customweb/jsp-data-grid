@@ -12,13 +12,17 @@ abstract public class AbstractTag extends SimpleTagSupport implements DynamicAtt
 	private Map<String, Object> tagAttributes = new HashMap<String, Object>();
 
 	public String getAdditionalAttributes() {
+		return getAdditionalAttributes(tagAttributes);
+	}
+	
+	public String getAdditionalAttributes(Map<String, Object> attributes) {
 		StringWriter builder = new StringWriter();
 
 		builder.append(" ");
-		for (String attrName : tagAttributes.keySet()) {
+		for (String attrName : attributes.keySet()) {
 			builder.append(attrName);
 			builder.append("=\"");
-			builder.append(tagAttributes.get(attrName).toString());
+			builder.append(attributes.get(attrName).toString());
 			builder.append("\" ");
 		}
 

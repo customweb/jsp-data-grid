@@ -59,10 +59,13 @@ select.grid-limit {
 
 .grid-filter-row input, .grid-filter-row select {
 	margin-bottom: 0;
-	width: 95%;
+	width: 100%;
 }
 
 .grid-filter-row {
 	border-bottom-width: 2px;
 }
 
+.grid-filter-row div {
+	margin: 0 10px 0 0;
+}
