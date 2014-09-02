@@ -120,11 +120,11 @@ public class ColumnTag extends AbstractTag {
 
 		builder.append("<div class=\"sorting ").append(orderingClass).append("\">");
 		builder.append("<a class=\"ajax-event\" href=\"").append(grid.getSortingUrl(getFieldName(), true, false))
-				.append("\"><span class=\"ascending\">&nbsp;</span></a>");
+				.append("\"><span class=\"ascending glyphicon glyphicon-chevron-up\">&nbsp;</span></a>");
 		builder.append("<a class=\"ajax-event\" href=\"").append(grid.getSortingUrl(getFieldName(), false, true))
-				.append("\"><span class=\"descending\">&nbsp;</span></a>");
+				.append("\"><span class=\"descending glyphicon glyphicon-chevron-down\">&nbsp;</span></a>");
 		builder.append("<a class=\"ajax-event\" href=\"").append(grid.getSortingUrl(getFieldName(), false, false))
-				.append("\"><span class=\"reset-sorting\">&nbsp;</span></a>");
+				.append("\"><span class=\"reset-sorting glyphicon glyphicon-remove\">&nbsp;</span></a>");
 		builder.append("</div>");
 
 		return builder.toString();
