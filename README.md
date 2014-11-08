@@ -1,3 +1,8 @@
+### Important: We are currently develop a new version, which is similar but allows other template engines than JSP.
+The old version can be downloaded unter the releases as version 1.0.0.
+
+
+
 jsp-data-grid
 =============
 
