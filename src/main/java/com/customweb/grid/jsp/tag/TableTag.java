@@ -1,4 +1,4 @@
-package org.jdgrid.tag;
+package com.customweb.grid.jsp.tag;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -7,7 +7,7 @@ import java.util.List;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 
-import org.jdgrid.Grid;
+import com.customweb.grid.Grid;
 
 
 public class TableTag extends AbstractTag {

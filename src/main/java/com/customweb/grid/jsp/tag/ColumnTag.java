@@ -1,4 +1,4 @@
-package org.jdgrid.tag;
+package com.customweb.grid.jsp.tag;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -11,10 +11,10 @@ import java.util.Map;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 
-import org.jdgrid.Grid;
-import org.jdgrid.util.Html;
-import org.jdgrid.util.Property;
-import org.jdgrid.util.UrlEncodedQueryString;
+import com.customweb.grid.Grid;
+import com.customweb.grid.util.Html;
+import com.customweb.grid.util.Property;
+import com.customweb.grid.util.UrlEncodedQueryString;
 
 public class ColumnTag extends AbstractTag {
 

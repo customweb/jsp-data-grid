@@ -1,11 +1,11 @@
-package org.jdgrid.tag;
+package com.customweb.grid.jsp.tag;
 
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
 
-import org.jdgrid.Grid;
-import org.jdgrid.util.UrlEncodedQueryString;
+import com.customweb.grid.Grid;
+import com.customweb.grid.util.UrlEncodedQueryString;
 
 public class FilterTag extends AbstractTag {
 

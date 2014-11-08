@@ -1,4 +1,4 @@
-package org.jdgrid.tag;
+package com.customweb.grid.jsp.tag;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -9,8 +9,8 @@ import java.util.Map.Entry;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
 
-import org.jdgrid.Grid;
-import org.jdgrid.filter.OrderBy;
+import com.customweb.grid.Grid;
+import com.customweb.grid.filter.OrderBy;
 
 
 public class GridTag extends AbstractTag {

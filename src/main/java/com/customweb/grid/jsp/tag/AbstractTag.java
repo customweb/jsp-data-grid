@@ -1,4 +1,4 @@
-package org.jdgrid.tag;
+package com.customweb.grid.jsp.tag;
 
 import java.io.StringWriter;
 import java.util.HashMap;

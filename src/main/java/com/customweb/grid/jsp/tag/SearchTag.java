@@ -1,10 +1,10 @@
-package org.jdgrid.tag;
+package com.customweb.grid.jsp.tag;
 
 import java.io.IOException;
 
 import javax.servlet.jsp.JspException;
 
-import org.jdgrid.Grid;
+import com.customweb.grid.Grid;
 
 
 public class SearchTag extends AbstractTag  {

@@ -5,11 +5,11 @@
 
 	<tlib-version>1.0</tlib-version>
 	<short-name>grid</short-name>
-	<uri>http://jdgrid.org/grid</uri>
+	<uri>http://www.customweb.com/data-grid</uri>
 
 	<tag>
 		<name>grid</name>
-		<tag-class>org.jdgrid.tag.GridTag</tag-class>
+		<tag-class>com.customweb.grid.tag.GridTag</tag-class>
 		<body-content>scriptless</body-content>
 		<attribute>
 			<name>grid</name>
@@ -21,7 +21,7 @@
 
 	<tag>
 		<name>table</name>
-		<tag-class>org.jdgrid.tag.TableTag</tag-class>
+		<tag-class>com.customweb.grid.tag.TableTag</tag-class>
 		<body-content>scriptless</body-content>
 		<attribute>
 			<name>var</name>
@@ -38,7 +38,7 @@
 
 	<tag>
 		<name>column</name>
-		<tag-class>org.jdgrid.tag.ColumnTag</tag-class>
+		<tag-class>com.customweb.grid.tag.ColumnTag</tag-class>
 		<body-content>scriptless</body-content>
 		<attribute>
 			<name>title</name>
@@ -85,7 +85,7 @@
 
 	<tag>
 		<name>pager</name>
-		<tag-class>org.jdgrid.tag.PagerTag</tag-class>
+		<tag-class>com.customweb.grid.tag.PagerTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>previousNextButton</name>
@@ -107,7 +107,7 @@
 
 	<tag>
 		<name>search</name>
-		<tag-class>org.jdgrid.tag.SearchTag</tag-class>
+		<tag-class>com.customweb.grid.tag.SearchTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>columnName</name>
@@ -119,14 +119,14 @@
 
 	<tag>
 		<name>submit</name>
-		<tag-class>org.jdgrid.tag.SubmitTag</tag-class>
+		<tag-class>com.customweb.grid.tag.SubmitTag</tag-class>
 		<body-content>empty</body-content>
 		<dynamic-attributes>true</dynamic-attributes>
 	</tag>
 
 	<tag>
 		<name>limit</name>
-		<tag-class>org.jdgrid.tag.LimitTag</tag-class>
+		<tag-class>com.customweb.grid.tag.LimitTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>steps</name>
@@ -138,7 +138,7 @@
 
 	<tag>
 		<name>filter</name>
-		<tag-class>org.jdgrid.tag.FilterTag</tag-class>
+		<tag-class>com.customweb.grid.tag.FilterTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>fieldName</name>
