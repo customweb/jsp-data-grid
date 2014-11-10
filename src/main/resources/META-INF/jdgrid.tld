@@ -9,7 +9,7 @@
 
 	<tag>
 		<name>grid</name>
-		<tag-class>com.customweb.grid.tag.GridTag</tag-class>
+		<tag-class>com.customweb.grid.jsp.tag.GridTag</tag-class>
 		<body-content>scriptless</body-content>
 		<attribute>
 			<name>grid</name>
@@ -21,7 +21,7 @@
 
 	<tag>
 		<name>table</name>
-		<tag-class>com.customweb.grid.tag.TableTag</tag-class>
+		<tag-class>com.customweb.grid.jsp.tag.TableTag</tag-class>
 		<body-content>scriptless</body-content>
 		<attribute>
 			<name>var</name>
@@ -38,7 +38,7 @@
 
 	<tag>
 		<name>column</name>
-		<tag-class>com.customweb.grid.tag.ColumnTag</tag-class>
+		<tag-class>com.customweb.grid.jsp.tag.ColumnTag</tag-class>
 		<body-content>scriptless</body-content>
 		<attribute>
 			<name>title</name>
@@ -57,6 +57,11 @@
 		</attribute>
 		<attribute>
 			<name>filterable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>filterOptions</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
@@ -85,7 +90,7 @@
 
 	<tag>
 		<name>pager</name>
-		<tag-class>com.customweb.grid.tag.PagerTag</tag-class>
+		<tag-class>com.customweb.grid.jsp.tag.PagerTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>previousNextButton</name>
@@ -107,7 +112,7 @@
 
 	<tag>
 		<name>search</name>
-		<tag-class>com.customweb.grid.tag.SearchTag</tag-class>
+		<tag-class>com.customweb.grid.jsp.tag.SearchTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>columnName</name>
@@ -119,14 +124,14 @@
 
 	<tag>
 		<name>submit</name>
-		<tag-class>com.customweb.grid.tag.SubmitTag</tag-class>
+		<tag-class>com.customweb.grid.jsp.tag.SubmitTag</tag-class>
 		<body-content>empty</body-content>
 		<dynamic-attributes>true</dynamic-attributes>
 	</tag>
 
 	<tag>
 		<name>limit</name>
-		<tag-class>com.customweb.grid.tag.LimitTag</tag-class>
+		<tag-class>com.customweb.grid.jsp.tag.LimitTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>steps</name>
@@ -138,7 +143,7 @@
 
 	<tag>
 		<name>filter</name>
-		<tag-class>com.customweb.grid.tag.FilterTag</tag-class>
+		<tag-class>com.customweb.grid.jsp.tag.FilterTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>fieldName</name>
@@ -157,6 +162,4 @@
 		</attribute>
 		<dynamic-attributes>true</dynamic-attributes>
 	</tag>
-
-
 </taglib>

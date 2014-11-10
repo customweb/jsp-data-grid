@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.JspFragment;
@@ -26,6 +27,7 @@ public class ColumnTag extends AbstractTag {
 	private String labelForTrue = "True";
 	private String colWidth;
 	private String align = "left";
+	private Map<String, String> filterOptions;
 
 	public void doTag() throws JspException, IOException {
 		TableTag table = (TableTag) findAncestorWithClass(this, TableTag.class);
@@ -83,7 +85,7 @@ public class ColumnTag extends AbstractTag {
 
 	private StringWriter getCellContent() throws JspException, IOException {
 		StringWriter value = new StringWriter();
-		
+
 		Map<String, Object> attributes = new HashMap<String, Object>(getDynamicAttribute());
 		if (attributes.containsKey("style")) {
 			attributes.put("style", "text-align: " + getAlign() + "; " + attributes.get("style"));
@@ -147,6 +149,22 @@ public class ColumnTag extends AbstractTag {
 			String dropDown = Html.getDropDown(inputFieldName, values, getCurrentFilterValue(), " class=\"ajax-event form-control\"");
 
 			builder.append(dropDown);
+		} else if (this.getFilterOptions() != null) {
+			UrlEncodedQueryString query = UrlEncodedQueryString.parse(grid.getCurrentUrl().getQuery());
+			String filterValue = null;
+			if (query.contains(inputFieldName)) {
+				filterValue = query.get(inputFieldName);
+			}
+			builder.append("<div><select class=\"form-control\" name=\"").append(inputFieldName).append("\" >");
+			builder.append("<option value=\"\"></option>");
+			for (Entry<String, String> option : this.getFilterOptions().entrySet()) {
+				builder.append("<option value=\"").append(option.getKey()).append("\"");
+				if (filterValue != null && filterValue.equals(option.getKey())) {
+					builder.append(" selected=\"selected\"");
+				}
+				builder.append(" >").append(option.getValue()).append("</option>");
+			}
+			builder.append("</select></div>");
 		} else {
 			builder.append("<div><input class=\"form-control\" type=\"text\" name=\"").append(inputFieldName).append("\" ");
 			builder.append("value=\"");
@@ -206,7 +224,7 @@ public class ColumnTag extends AbstractTag {
 		for (String currentProperty : parts) {
 			data = getProperty(data, currentProperty);
 		}
-		
+
 		if (data == null) {
 			return "";
 		}
@@ -218,7 +236,7 @@ public class ColumnTag extends AbstractTag {
 		if (item == null) {
 			return "";
 		}
-		
+
 		char first = Character.toUpperCase(property.charAt(0));
 		String methodName = "get" + first + property.substring(1);
 		try {
@@ -233,7 +251,7 @@ public class ColumnTag extends AbstractTag {
 		} catch (InvocationTargetException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 		Field field = Property.getFieldByFieldName(item.getClass(), property);
 		if (field != null) {
 			Property.makeAccessible(field);
@@ -277,18 +295,18 @@ public class ColumnTag extends AbstractTag {
 		}
 		return "";
 	}
-	
+
 	public String getColContent() {
 		StringBuilder builder = new StringBuilder();
 
 		builder.append("<col ");
-		
+
 		if (colWidth != null) {
 			builder.append("width = \"").append(colWidth).append("\" ");
 		}
-		
+
 		builder.append("/>");
-		
+
 		return builder.toString();
 	}
 
@@ -308,6 +326,14 @@ public class ColumnTag extends AbstractTag {
 		if (align.matches("left|right|center")) {
 			this.align = align;
 		}
+	}
+
+	public Map<String, String> getFilterOptions() {
+		return filterOptions;
+	}
+
+	public void setFilterOptions(Map<String, String> filterOptions) {
+		this.filterOptions = filterOptions;
 	}
 
 }
