@@ -28,6 +28,7 @@ public class ColumnTag extends AbstractTag {
 	private String colWidth;
 	private String align = "left";
 	private Map<String, String> filterOptions;
+	private String filterOperator;
 
 	public void doTag() throws JspException, IOException {
 		TableTag table = (TableTag) findAncestorWithClass(this, TableTag.class);
@@ -175,9 +176,28 @@ public class ColumnTag extends AbstractTag {
 
 			builder.append("\" /></div>");
 		}
+		
+		if (getFilterOperator() != null) {
+			builder.append("<input ").append(getAdditionalAttributes()).append(" ");
+			builder.append(" type=\"hidden\" ");
+			String operatorName = grid.getFilterOperatorName(fieldName);
+			builder.append("name=\"").append(operatorName).append("\" ");
+			builder.append("value=\"").append(getOperatorValue()).append("\" ");
+			builder.append(" />");
+		}
 
 		// TODO: Add operator dropdown
 		return builder.toString();
+	}
+	
+	protected String getOperatorValue() {
+		Grid<?> grid = getGrid();
+		String operatorName = grid.getFilterOperatorName(fieldName);		
+		UrlEncodedQueryString query = UrlEncodedQueryString.parse(grid.getCurrentUrl().getQuery());
+		if (query.contains(operatorName)) {
+			return query.get(operatorName);
+		}
+		return getFilterOperator();
 	}
 
 	public boolean isFilterable() {
@@ -334,6 +354,14 @@ public class ColumnTag extends AbstractTag {
 
 	public void setFilterOptions(Map<String, String> filterOptions) {
 		this.filterOptions = filterOptions;
+	}
+
+	public String getFilterOperator() {
+		return filterOperator;
+	}
+
+	public void setFilterOperator(String filterOperator) {
+		this.filterOperator = filterOperator;
 	}
 
 }

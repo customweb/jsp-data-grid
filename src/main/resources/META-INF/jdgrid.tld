@@ -66,6 +66,11 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+			<name>filterOperator</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
 			<name>labelForTrue</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
